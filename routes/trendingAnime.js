@@ -5,7 +5,7 @@ const router = Router();
 router.get('/', async (req, res) => {
   let result;
   try {
-    const data = await fetch(`${process.env.BASEURL}/anime`);
+    const data = await fetch(`${process.env.BASEURL}/trending/anime`);
     result = await data.json();
   } catch (error) {
     throw new Error('no data was returned');
