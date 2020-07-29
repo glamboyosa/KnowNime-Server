@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 config();
 const REDIS_PORT = process.env.port || 6379;
-//client = redis.createClient(REDIS_PORT);
+// will throw an error if Redis isn't running
+//exports.client = redis.createClient(REDIS_PORT);
 app.use('/api/anime', anime);
 app.use('/api/trendinganime', trendingAnime);
 app.use('/api/newanime', newAnime);
