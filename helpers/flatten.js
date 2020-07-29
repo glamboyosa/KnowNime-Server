@@ -1,13 +1,20 @@
 const roundToTwoDecimalPlaces = require('./roundToTwoDecimalPlaces');
-// TODO: when you know exactly how many attributes you're using send only that to the client
 exports.flattenArray = (data) => {
   return data.map((el) => {
     return {
+      id: el.id,
       attributes: {
-        ...el.attributes,
+        synopsis: el.attributes.synopsis,
+        canonicalTitle: el.attributes.canonicalTitle,
         averageRating: roundToTwoDecimalPlaces(
           parseFloat(el.attributes.averageRating / 10)
         ),
+        ageRating: el.attributes.ageRating,
+        posterImage: {
+          medium: el.attributes.posterImage.medium,
+          large: el.attributes.posterImage.large,
+          original: el.attributes.posterImage.original,
+        },
       },
       link: `${process.env.LOCAL_URL}/anime/${
         el.links.self.split('/')[el.links.self.split('/').length - 1]
@@ -17,11 +24,19 @@ exports.flattenArray = (data) => {
 };
 exports.flattenObject = (data) => {
   return {
+    id: data.id,
     attributes: {
-      ...data.attributes,
+      synopsis: data.attributes.synopsis,
+      canonicalTitle: data.attributes.canonicalTitle,
       averageRating: roundToTwoDecimalPlaces(
         parseFloat(data.attributes.averageRating / 10)
       ),
+      ageRating: data.attributes.ageRating,
+      posterImage: {
+        medium: data.attributes.posterImage.medium,
+        large: data.attributes.posterImage.large,
+        original: data.attributes.posterImage.original,
+      },
     },
   };
 };
