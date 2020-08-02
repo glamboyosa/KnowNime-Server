@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const fetch = require('node-fetch');
 const { flattenArray, flattenObject } = require('../helpers/flatten');
+const routeNames = require('../helpers/routenames');
 const router = Router();
 router.get('/', async (req, res) => {
   let result;
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
-  req.routeName = 'anime';
+  req.routeName = routeNames.anime;
   res.status(200).json({
     status: 'success',
     data: flattenArray(result.data),
@@ -25,7 +26,7 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
-  req.routeName = 'anime';
+  req.routeName = routeNames.anime;
   res.status(200).json({
     status: 'success',
     data: flattenObject(result.data),

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const fetch = require('node-fetch');
 const { flattenArray } = require('../helpers/flatten');
+const routeNames = require('../helpers/routenames');
 const router = Router();
 router.get('/', async (req, res) => {
   let result;
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
   result = result.data.filter((el) =>
     /^2017|^2018|^2019/.test(el.attributes.startDate)
   );
-  req.routeName = 'newanime';
+  req.routeName = routeNames.newAnime;
   res.status(200).json({
     status: 'success',
     data: flattenArray(result),
