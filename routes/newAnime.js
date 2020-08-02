@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   result = result.data.filter((el) =>
     /^2017|^2018|^2019/.test(el.attributes.startDate)
   );
-
+  req.routeName = 'newanime';
   res.status(200).json({
     status: 'success',
     data: flattenArray(result),

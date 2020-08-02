@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
+  req.routeName = 'anime';
   res.status(200).json({
     status: 'success',
     data: flattenArray(result.data),
@@ -24,6 +25,7 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
+  req.routeName = 'anime';
   res.status(200).json({
     status: 'success',
     data: flattenObject(result.data),
