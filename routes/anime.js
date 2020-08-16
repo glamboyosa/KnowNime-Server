@@ -2,8 +2,10 @@ const { Router } = require('express');
 const fetch = require('node-fetch');
 const { flattenArray, flattenObject } = require('../helpers/flatten');
 const routeNames = require('../helpers/routenames');
+const client = require('../helpers/redisClient');
+const cacheMiddleware = require('../middleware/cache');
 const router = Router();
-router.get('/', async (req, res) => {
+router.get('/', cacheMiddleware, async (req, res) => {
   let result;
   try {
     const data = await fetch(`${process.env.BASEURL}/anime`);
@@ -11,7 +13,7 @@ router.get('/', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
-  req.routeName = routeNames.anime;
+  client.setex(routeNames.anime, 3600, flattenArray(result.data));
   res.status(200).json({
     status: 'success',
     data: flattenArray(result.data),
@@ -26,7 +28,6 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
-  req.routeName = routeNames.anime;
   res.status(200).json({
     status: 'success',
     data: flattenObject(result.data),

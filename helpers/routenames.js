@@ -1,5 +1,5 @@
 module.exports = {
-  anime: 'ANIME',
-  trendingAnime: 'TRENDINGANIME',
-  newAnime: 'NEWANIME',
+  anime: 'anime',
+  trendingAnime: 'trendinganime',
+  newAnime: 'newanime',
 };
