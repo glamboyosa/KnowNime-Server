@@ -2,6 +2,7 @@ const { Router } = require('express');
 const fetch = require('node-fetch');
 const { flattenArray } = require('../helpers/flatten');
 const routeNames = require('../helpers/routenames');
+const client = require('../helpers/redisClient');
 const router = Router();
 router.get('/', async (req, res) => {
   let result;
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
   result = result.data.filter((el) =>
     /^2017|^2018|^2019/.test(el.attributes.startDate)
   );
-  req.routeName = routeNames.newAnime;
+  client.setex(routeNames.newAnime, 3600, JSON.stringify(flattenArray(result)));
   res.status(200).json({
     status: 'success',
     data: flattenArray(result),

@@ -1,12 +1,12 @@
 const routeNames = require('../helpers/routeNames');
 const client = require('../helpers/redisClient');
 module.exports = (req, res, next) => {
-  console.log();
   const route = req.baseUrl.split('/')[2];
   console.log(route);
+  console.log('are we hitting this middleware function ?');
   console.log(route === routeNames.anime);
   if (route === routeNames.anime) {
-    client.get(routeNames.anime, (err, data) => {
+    return client.get(routeNames.anime, (err, data) => {
       if (err) {
         console.log('some error');
         return next();
@@ -17,15 +17,41 @@ module.exports = (req, res, next) => {
       }
       res.status(200).json({
         status: 'success',
-        data,
+        data: JSON.parse(data),
       });
     });
   }
   if (route === routeNames.newAnime) {
-    console.log("shouldn't happen yet");
+    return client.get(routeNames.newAnime, (err, data) => {
+      if (err) {
+        console.log('some error');
+        return next();
+      }
+      if (!data) {
+        console.log('no data');
+        return next();
+      }
+      res.status(200).json({
+        status: 'success',
+        data: JSON.parse(data),
+      });
+    });
   }
   if (route === routeNames.trendingAnime) {
-    console.log('should also not work');
+    return client.get(routeNames.trendingAnime, (err, data) => {
+      if (err) {
+        console.log('some error');
+        return next();
+      }
+      if (!data) {
+        console.log('no data');
+        return next();
+      }
+      res.status(200).json({
+        status: 'success',
+        data: JSON.parse(data),
+      });
+    });
   }
   console.log('we get here');
   return next();

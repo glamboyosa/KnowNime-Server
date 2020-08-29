@@ -5,7 +5,7 @@ const routeNames = require('../helpers/routenames');
 const client = require('../helpers/redisClient');
 const cacheMiddleware = require('../middleware/cache');
 const router = Router();
-router.get('/', cacheMiddleware, async (req, res) => {
+router.get('/', async (req, res) => {
   let result;
   try {
     const data = await fetch(`${process.env.BASEURL}/anime`);
@@ -13,7 +13,11 @@ router.get('/', cacheMiddleware, async (req, res) => {
   } catch (error) {
     throw new Error('no data was returned');
   }
-  client.setex(routeNames.anime, 3600, flattenArray(result.data));
+  client.setex(
+    routeNames.anime,
+    3600,
+    JSON.stringify(flattenArray(result.data))
+  );
   res.status(200).json({
     status: 'success',
     data: flattenArray(result.data),
