@@ -1,5 +1,5 @@
-const roundToTwoDecimalPlaces = require('./roundToTwoDecimalPlaces');
-exports.flattenArray = (data) => {
+import roundToTwoDecimalPlaces from './roundToTwoDecimalPlaces.js';
+export const flattenArray = (data) => {
   return data.map((el) => {
     return {
       id: el.id,
@@ -22,7 +22,7 @@ exports.flattenArray = (data) => {
     };
   });
 };
-exports.flattenObject = (data) => {
+export const flattenObject = (data) => {
   return {
     id: data.id,
     attributes: {

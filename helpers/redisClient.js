@@ -1,4 +1,4 @@
-const redis = require('redis');
+import redis from 'redis';
 const REDIS_PORT = process.env.port || 6379;
-client = redis.createClient(REDIS_PORT);
-module.exports = client;
+const client = redis.createClient(REDIS_PORT);
+export default client;

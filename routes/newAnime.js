@@ -1,9 +1,9 @@
-const { Router } = require('express');
-const fetch = require('node-fetch');
-const { flattenArray } = require('../helpers/flatten');
-const routeNames = require('../helpers/routenames');
-const client = require('../helpers/redisClient');
-const router = Router();
+import express from 'express';
+import fetch from 'node-fetch';
+import { flattenArray } from '../helpers/flatten.js';
+import client from '../helpers/redisClient.js';
+import routeNames from '../helpers/routenames.js';
+const router = express.Router();
 router.get('/', async (req, res) => {
   let result;
   try {
@@ -22,4 +22,4 @@ router.get('/', async (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

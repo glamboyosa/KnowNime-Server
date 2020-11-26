@@ -1,6 +1,6 @@
-const routeNames = require('../helpers/routeNames');
-const client = require('../helpers/redisClient');
-module.exports = (req, res, next) => {
+import routeNames from '../helpers/routenames.js';
+import client from '../helpers/redisClient.js';
+export default (req, res, next) => {
   const route = req.baseUrl.split('/')[2];
   if (route === routeNames.anime) {
     return client.get(routeNames.anime, (err, data) => {

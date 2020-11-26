@@ -1,1 +1,1 @@
-module.exports = (num) => Math.round(num * 100) / 100;
+export default (num) => Math.round(num * 100) / 100;
